@@ -17,10 +17,12 @@
     <title>TinyApp</title>
   </head>
   <body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
     <main style="margin: 1em;">
       <h3>My URLs</h3>
-      <a href="#">Create URL</a>
-      <table class="table">
+        <table class="table">
         <thead>
           <tr>
             <th scope="col"> URL ID </th>
@@ -36,6 +38,7 @@
           <% } %>
         </tbody>
       </table>
+      <p><a href="#">Click me to create shortened URL</a></p>
     </main>
     <!-- Bootstrap JS -->
     <script
