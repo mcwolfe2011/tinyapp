@@ -49,18 +49,29 @@ app.get("/hello", (req, res) => {
 
 
 app.get("/urls", (req, res) => {
-  const templateVars = { urls: urlDatabase };
+  const templateVars = {
+    urls: urlDatabase,
+    username: req.cookies["username"],
+  };
   res.render("urls_index", templateVars);
 });
 
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  const templateVars = {
+    urls: urlDatabase,
+    username: req.cookies["username"],
+  };
+  res.render("urls_new", templateVars);
 });
 
 
 app.get("/urls/:id", (req, res) => {
-  const templateVars = { id: req.params.id, longURL: urlDatabase[req.params.id] };
+  const templateVars = {
+    id: req.params.id,
+    longURL: urlDatabase[req.params.id],
+    username: req.cookies["username"],
+  };
   res.render("urls_show", templateVars);
 });
 
@@ -78,18 +89,11 @@ app.get("/u/:id", (req, res) => {
 });
 
 
-
-
-
-
-
-
-//Cookies in express
-//I have to ask mentor on this yet
-//Add an endpoint to handle a POST to/login
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('/login');
 });
+
+
 
 app.post('/login', (req, res) => {
   const user = req.body.username;
@@ -97,17 +101,6 @@ app.post('/login', (req, res) => {
   res.cookie('username', `${user}`);
   res.redirect("/urls");
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.post("/urls/:id/delete", (req, res) => {
