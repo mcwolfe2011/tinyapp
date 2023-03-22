@@ -76,6 +76,14 @@ app.get("/u/:id", (req, res) => {
 });
 
 
+app.post("/urls/:id/delete", (req, res) => {
+  const shortID = req.params.id;
+  console.log("shortId is: ", shortID);
+  delete urlDatabase[shortID];
+  res.redirect("/urls");
+});
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
