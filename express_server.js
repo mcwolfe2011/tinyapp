@@ -49,9 +49,11 @@ app.get("/hello", (req, res) => {
 
 
 app.get("/urls", (req, res) => {
+  const userName = req.cookies["username"];
+  console.log("username is: ", userName);
   const templateVars = {
     urls: urlDatabase,
-    username: req.cookies["username"],
+    userName
   };
   res.render("urls_index", templateVars);
 });
@@ -96,9 +98,9 @@ app.get('/login', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-  const user = req.body.username;
-  console.log(user);
-  res.cookie('username', `${user}`);
+  const userName = req.body.username;
+  console.log(userName);
+  res.cookie('username', userName);
   res.redirect("/urls");
 });
 
