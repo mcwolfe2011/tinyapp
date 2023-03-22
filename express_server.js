@@ -1,12 +1,19 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
-//Methods
+const cookieParser = require('cookie-parser');
+
+
+//configS
 app.set("view engine", "ejs");
+
+//middleware
+//app.use(morgan('dev')); //(req, res, next) => {}
+app.use(cookieParser()); //populate req.cookies
+app.use(express.urlencoded({extended: false})); // populates req.body
 
 
 //Functions and Methods
-
 const generateRandomString = function() {
   let randomString = '';
   const characterList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -26,14 +33,9 @@ const urlDatabase = {
 };
 
 
-
-
 app.get("/", (req, res) => {
   res.send("Hello! This is hard hey!");
 });
-
-
-
 
 
 app.get("/urls.json", (req, res) => {
@@ -76,6 +78,38 @@ app.get("/u/:id", (req, res) => {
 });
 
 
+
+
+
+
+
+
+//Cookies in express
+//I have to ask mentor on this yet
+//Add an endpoint to handle a POST to/login
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', (req, res) => {
+  const user = req.body.username;
+  console.log(user);
+  res.cookie('username', `${user}`);
+  res.redirect("/urls");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.post("/urls/:id/delete", (req, res) => {
   const shortID = req.params.id;
   console.log("shortId is: ", shortID);
@@ -88,6 +122,7 @@ app.post("/urls/:id", (req, res) => {
   urlDatabase[req.params.id] = req.body.url;
   res.redirect("/urls");
 });
+
 
 
 app.listen(PORT, () => {
