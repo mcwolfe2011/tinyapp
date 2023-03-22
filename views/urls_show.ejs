@@ -23,10 +23,13 @@
           Short URL ID: <a href="/u/<%= id %>"><%= id %></a>
         </p>
       </div>
-      <div class="card-footer text-muted"></div>
+
+      <div class="card-footer text-muted">
+      </div>
       <div class="card-footer text-muted">
         <form method="POST" action ="/urls/<%= id %>">
           <input type="text" name="url"/>
+          <button type="submit">Edit</button>
         </form>
       </div>
     </div>
