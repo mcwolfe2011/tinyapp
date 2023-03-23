@@ -174,6 +174,7 @@ const addNewUser = (name, email, password) => {
     email,
     password,
   };
+  
   users[userId] = newUser;
   return userId;
 };
