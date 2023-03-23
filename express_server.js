@@ -116,13 +116,13 @@ app.post('/logout', (req, res) => {
 
 
 // Day 3 Added Codes - Have mentor check it
-// Authentication
 // Display the register form
 app.get('/register', (req, res) => {
   const templateVars = { currentUser: null };
   res.render('register', templateVars);
 });
 
+//Create a Registration Handler:
 // Get the info from the register form
 app.post('/register', (req, res) => {
   // extract the info from the form
@@ -134,14 +134,14 @@ app.post('/register', (req, res) => {
 
   const user = findUserByEmail(email);
 
-  // if not in the db, it'ok to add the user to the db
-
+  // add user to the db if not yet there:
   if (!user) {
     const userId = addNewUser(name, email, password);
     // setCookie with the user id
     res.cookie('user_id', userId);
-
-    // redirect to /quotes
+    //testing if users object is properly appended:
+    console.log(userId);
+    // redirect to /urls
     res.redirect('/urls');
   } else {
     res.status(404).send('Sorry, the user is already registered');
@@ -164,7 +164,21 @@ const users = {
 };
 
 
+const addNewUser = (name, email, password) => {
+  //generate unique user id:
+  const userId = Math.random().toString(36).substring(2, 8);
+  //Create new user object:
+  const newUser = {
+    id: userId,
+    name,
+    email,
+    password,
+  };
+  users[userId] = newUser;
+  return userId;
+};
 
+const userId = req.cookies['user_id'];
 //end of day 3 added codes
 
 
