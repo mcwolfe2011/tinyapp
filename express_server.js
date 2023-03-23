@@ -178,7 +178,7 @@ const addNewUser = (name, email, password) => {
   return userId;
 };
 
-const userId = req.cookies['user_id'];
+//const userId = req.cookies['user_id'];
 //end of day 3 added codes
 
 
