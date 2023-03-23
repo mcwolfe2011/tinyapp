@@ -23,6 +23,32 @@ const generateRandomString = function() {
   return randomString;
 };
 
+//Create a users Object:
+const users = {
+  userRandomID: {
+    id: "abc",
+    email: "user@abc.com",
+    password: "123",
+  },
+  user2RandomID: {
+    id: "def",
+    email: "user2@def.com",
+    password: "123",
+  },
+};
+
+
+const getUserByEmail = function(email) {
+  for (const userId in users) {
+    if (users[userId].email === email) {
+      return users[userId];
+    }
+  }
+  return null;
+};
+
+
+
 app.use(express.urlencoded({ extended: true }));
 
 //Error Registration Handling
@@ -124,40 +150,27 @@ app.post('/logout', (req, res) => {
 
 
 
-
-
-
-// Day 3 Added Codes - Have mentor check it
-// Display the register form
-// app.get('/register', (req, res) => {
-
-//   const templateVars = { currentUser: null };
-//   res.render('register', templateVars);
-// });
-
-//Create a Registration Handler:
-// Get the info from the register form
 app.post('/register', (req, res) => {
   // extract the info from the form
   const email = req.body.email;
   const password = req.body.password;
 
+  const user = getUserByEmail(email);
 
-
-  // const user = findUserByEmail(email);
-
-  // // add user to the db if not yet there:
-  // if (!user) {
-  //   const userId = addNewUser(email, password);
-  //   // setCookie with the user id
-  //   res.cookie('user_id', userId);
-  //   //testing if users object is properly appended:
-  //   console.log(userId);
-  //   // redirect to /urls
-  //   res.redirect('/urls');
-  // } else {
-  //   res.status(404).send('Sorry, the user is already registered');
-  // }
+  // add user to the db if not yet there:
+  if (user) {
+    return res.status(404).send('Sorry, the user is already registered');
+  }
+  const userId = generateRandomString();
+  //Create new user object:
+  const newUser = {
+    id: userId,
+    email,
+    password,
+  };
+  users[userId] = newUser;
+  res.cookie('username', email);
+  res.redirect('/urls');
 });
 
 
@@ -168,44 +181,6 @@ app.get('/register', (req, res) => {
   };
   res.render('register', templateVars);
 });
-
-
-
-const users = {
-  userRandomID: {
-    id: "abc",
-    email: "user@abc.com",
-    password: "123",
-  },
-  user2RandomID: {
-    id: "def",
-    email: "user2@def.com",
-    password: "123",
-  },
-};
-
-
-const addNewUser = (name, email, password) => {
-  //generate unique user id:
-  const userId = Math.random().toString(36).substring(2, 8);
-  //Create new user object:
-  const newUser = {
-    id: userId,
-    name,
-    email,
-    password,
-  };
-  
-  users[userId] = newUser;
-  return userId;
-};
-
-//const userId = req.cookies['user_id'];
-//end of day 3 added codes
-
-
-
-
 
 
 app.post("/urls/:id/delete", (req, res) => {
