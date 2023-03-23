@@ -147,6 +147,24 @@ app.post('/register', (req, res) => {
     res.status(404).send('Sorry, the user is already registered');
   }
 });
+
+
+
+const users = {
+  userRandomID: {
+    id: "abc",
+    email: "user@example.com",
+    password: "123",
+  },
+  user2RandomID: {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "123",
+  },
+};
+
+
+
 //end of day 3 added codes
 
 
