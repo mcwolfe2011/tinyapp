@@ -11,11 +11,20 @@
     <%- include('partials/_header') %>
   </header>
 
+<% if (user_id)  { %>
+  <br />
+  <br />
+
+<p>You are already currently logged in.</p>
+<h3>Reached this page by mistake? <a href="urls">Click here</a> to return to your link library.</h3>
+
+<% } else { %>
+
 <div class="container">
 
-    <h1>Register</h1>
+    <h2>To use TinyApp, please register a new account:</h2>
 
-    <form method="post" action="/register">
+    <form method="POST" action="/register">
       <div style="width: 20em;">
           <div class="form-group">
         <label for="name">Name:</label>
@@ -49,8 +58,10 @@
         <input type="submit" class="btn btn-primary" value="Register" />
       </div>
     </form>
-
+    <h2>Already registered? <a href="/login">Click here to login.</a></h2>
 </div>
+
+<% } %>
 
 </body>
 </html>
