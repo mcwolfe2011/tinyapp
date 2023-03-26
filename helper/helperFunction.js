@@ -1,4 +1,4 @@
-// -- GET USER EMAIL FUNCTION ---------------------------------
+// -- GET USER EMAIL FUNCTION --
 const getUserByEmail = function(email, users) {
   for (const id in users) {
     const user = users[id];
@@ -10,7 +10,7 @@ const getUserByEmail = function(email, users) {
   return null;
 };
 
-// -- GET URL FOR USER ---------------------------------------
+// -- GET URL FOR USER --
 const urlsForUser = (userID, urlDatabase) => {
   let userDatabase = {};
 
@@ -22,7 +22,7 @@ const urlsForUser = (userID, urlDatabase) => {
   return userDatabase;
 };
 
-// -- GENERATE ID FUNCTION ------------------------------------
+// -- GENERATE ID FUNCTION --
 const generateRandomString = function(length) {
   let result = "";
   const characters =
